@@ -13,20 +13,29 @@ const formatTime = (time) => {
 
 const EventCard = ({ event, isAdmin, onEdit, onDelete }) => {
   return (
-    <Card className="mb-3">
-      <Card.Body>
-        <Card.Title>{event.title}</Card.Title>
+    <Card className="mb-3 border-0 shadow-sm bg-light">
+      <Card.Body className="d-flex flex-column gap-2 p-3">
+        <Card.Title className="mb-1">{event.title}</Card.Title>
 
-        <Card.Subtitle className="mb-2 text-muted">
-          {`${formatTime(event.startTime)} - ${formatTime(event.endTime)}`}
-        </Card.Subtitle>
+        <Card.Text className="mb-1">
+          <span className="fw-semibold">Event Title: </span>
+          {event.title}
+        </Card.Text>
+
+        <Card.Text className="mb-1 text-muted">
+          <span className="fw-semibold text-body">Time: </span>
+          {`${formatTime(event.startTime)} – ${formatTime(event.endTime)}`}
+        </Card.Text>
 
         {event.description && (
-          <Card.Text>{event.description}</Card.Text>
+          <Card.Text className="mb-1">
+            <span className="fw-semibold">Description: </span>
+            {event.description}
+          </Card.Text>
         )}
 
         {isAdmin && onEdit && onDelete && (
-          <div className="d-flex gap-2">
+          <div className="d-flex justify-content-end gap-2 mt-auto pt-2">
             <Button size="sm" onClick={() => onEdit(event)}>Edit</Button>
             <Button size="sm" variant="danger" onClick={() => onDelete(event._id)}>Delete</Button>
           </div>

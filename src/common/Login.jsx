@@ -1,4 +1,5 @@
-import { useState } from "react"; import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, Button, Container } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { adminLoginAPI } from "../services/AllAPI";
@@ -9,15 +10,23 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    if (localStorage.getItem("role") === "admin") {
+      navigate("/admin/dashboard", { replace: true });
+    }
+  }, [navigate]);
+
   const loginAdmin = async (e) => {
     e.preventDefault();
     try {
       const res = await adminLoginAPI({ email, password });
-      if (res.data.success) {
+      if (res?.data?.success) {
         localStorage.setItem("role", "admin");
-        Swal.fire("Success", "Login successful", "success");
-        navigate("/admin/dashboard");
+        await Swal.fire("Success", "Login successful", "success");
+        navigate("/admin/dashboard", { replace: true });
+        return;
       }
+      Swal.fire("Error", res?.data?.message || "Invalid email or password", "error");
     } catch (err) {
       Swal.fire("Error", "Invalid email or password", "error");
     }
