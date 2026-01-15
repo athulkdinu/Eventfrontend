@@ -1,5 +1,16 @@
 import { Card, Button } from "react-bootstrap";
 
+const formatTime = (time) => {
+  if (!time || typeof time !== "string") return time;
+  const [hStr, mStr] = time.split(":");
+  const h = Number(hStr);
+  const m = Number(mStr);
+  if (Number.isNaN(h) || Number.isNaN(m)) return time;
+  const period = h >= 12 ? "PM" : "AM";
+  const hour12 = h % 12 === 0 ? 12 : h % 12;
+  return `${hour12}:${m.toString().padStart(2, "0")} ${period}`;
+};
+
 const EventCard = ({ event, isAdmin, onEdit, onDelete }) => {
   return (
     <Card className="mb-3">
@@ -7,7 +18,7 @@ const EventCard = ({ event, isAdmin, onEdit, onDelete }) => {
         <Card.Title>{event.title}</Card.Title>
 
         <Card.Subtitle className="mb-2 text-muted">
-          {event.startTime} - {event.endTime}
+          {`${formatTime(event.startTime)} - ${formatTime(event.endTime)}`}
         </Card.Subtitle>
 
         {event.description && (
