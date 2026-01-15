@@ -1,4 +1,4 @@
-## Admin Login Credentials (for evaluation)
+## Admin Login Credentials
 
 Email: admin@gmail.com  
 Password: admin123
