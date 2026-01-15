@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import { adminLoginAPI } from "../services/AllAPI";
 
 const Login = () => {
-
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,9 +38,7 @@ const Login = () => {
 
         <form onSubmit={loginAdmin}>
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control mb-2" required />
-
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control mb-3"required autoComplete="current-password"/>
-          
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control mb-3" required autoComplete="current-password" />
           <Button type="submit" className="w-100">Login</Button>
         </form>
       </Card>

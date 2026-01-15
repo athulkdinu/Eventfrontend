@@ -23,9 +23,9 @@ const AdminDashboard = () => {
   const [event, setEvent] = useState(emptyEvent);
   const [editId, setEditId] = useState(null);
 
-  const hours = ["1","2","3","4","5","6","7","8","9","10","11","12"];
-  const minutes = ["00","15","30","45"];
-  const periods = ["AM","PM"];
+  const hours = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+  const minutes = ["00", "15", "30", "45"];
+  const periods = ["AM", "PM"];
 
   const to24Hour = (hour, minute, period) => {
     if (!hour || !minute || !period) return null;
@@ -47,7 +47,6 @@ const AdminDashboard = () => {
     return { hour: hour12.toString(), minute: m.toString().padStart(2, "0"), period };
   };
 
-  // load events when date changes
   useEffect(() => { loadEvents(); }, [date]);
 
   const loadEvents = async () => {
@@ -137,49 +136,25 @@ const AdminDashboard = () => {
           <h5>{editId ? "Edit Event" : "Add Event"}</h5>
 
           <form onSubmit={submitEvent}>
-            <input
-              placeholder="Title"
-              value={event.title}
-              onChange={(e) => setEvent({ ...event, title: e.target.value })}
-              className="form-control mb-2"
-              required
-            />
+            <input placeholder="Title" value={event.title} onChange={(e) => setEvent({ ...event, title: e.target.value })} className="form-control mb-2" required />
 
-            <input
-              placeholder="Description"
-              value={event.description}
-              onChange={(e) => setEvent({ ...event, description: e.target.value })}
-              className="form-control mb-2"
-            />
+            <input placeholder="Description" value={event.description} onChange={(e) => setEvent({ ...event, description: e.target.value })} className="form-control mb-2" />
 
             <div className="mb-2">
               <small className="text-muted d-block mb-1">Start time</small>
               <div className="d-flex gap-2">
-                <select
-                  value={event.startHour}
-                  onChange={(e) => setEvent({ ...event, startHour: e.target.value })}
-                  className="form-select"
-                  required
-                >
+                <select value={event.startHour} onChange={(e) => setEvent({ ...event, startHour: e.target.value })} className="form-select" required>
                   <option value="">Hour</option>
                   {hours.map((h) => (
                     <option key={h} value={h}>{h}</option>
                   ))}
                 </select>
-                <select
-                  value={event.startMinute}
-                  onChange={(e) => setEvent({ ...event, startMinute: e.target.value })}
-                  className="form-select"
-                >
+                <select value={event.startMinute} onChange={(e) => setEvent({ ...event, startMinute: e.target.value })} className="form-select">
                   {minutes.map((m) => (
                     <option key={m} value={m}>{m}</option>
                   ))}
                 </select>
-                <select
-                  value={event.startPeriod}
-                  onChange={(e) => setEvent({ ...event, startPeriod: e.target.value })}
-                  className="form-select"
-                >
+                <select value={event.startPeriod} onChange={(e) => setEvent({ ...event, startPeriod: e.target.value })} className="form-select">
                   {periods.map((p) => (
                     <option key={p} value={p}>{p}</option>
                   ))}
@@ -190,31 +165,18 @@ const AdminDashboard = () => {
             <div className="mb-3">
               <small className="text-muted d-block mb-1">End time</small>
               <div className="d-flex gap-2">
-                <select
-                  value={event.endHour}
-                  onChange={(e) => setEvent({ ...event, endHour: e.target.value })}
-                  className="form-select"
-                  required
-                >
+                <select value={event.endHour} onChange={(e) => setEvent({ ...event, endHour: e.target.value })} className="form-select" required>
                   <option value="">Hour</option>
                   {hours.map((h) => (
                     <option key={h} value={h}>{h}</option>
                   ))}
                 </select>
-                <select
-                  value={event.endMinute}
-                  onChange={(e) => setEvent({ ...event, endMinute: e.target.value })}
-                  className="form-select"
-                >
+                <select value={event.endMinute} onChange={(e) => setEvent({ ...event, endMinute: e.target.value })} className="form-select">
                   {minutes.map((m) => (
                     <option key={m} value={m}>{m}</option>
                   ))}
                 </select>
-                <select
-                  value={event.endPeriod}
-                  onChange={(e) => setEvent({ ...event, endPeriod: e.target.value })}
-                  className="form-select"
-                >
+                <select value={event.endPeriod} onChange={(e) => setEvent({ ...event, endPeriod: e.target.value })} className="form-select">
                   {periods.map((p) => (
                     <option key={p} value={p}>{p}</option>
                   ))}
@@ -227,15 +189,13 @@ const AdminDashboard = () => {
         </Card>
 
         <Card className="p-3">
-          <input type="date" value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="form-control mb-3" />
+          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control mb-3" />
 
           {events.length === 0
             ? <p>No events</p>
-            : events.map(ev =>
+            : events.map(ev => (
               <EventCard key={ev._id} event={ev} isAdmin onEdit={editEvent} onDelete={removeEvent} />
-            )}
+            ))}
         </Card>
       </Container>
     </>
